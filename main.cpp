@@ -105,58 +105,48 @@ int Get_Num(int hang, int lie)
 }
 
 char judge, s[100];
-void create()
+
+void create(int n)
 {
-	int n = 0,
-		times = 0,
-		flag = 0;
-	for (int i = 0; i < strlen(s); i++)
-	{
-		if (s[i]<'0' || s[i]>'9')
-		{
-			printf("Wrong Input\n\n");
-			flag = 1;
-			break;
-		}
-		n = n * 10 + (s[i] - '0');
-	}
-	printf("%d", n);
-	if (flag);
-	else
-	{
+	int times = 0;
+	
 		int move[10] = { 0, 0, 3, 6, 1, 4, 7, 2, 5, 8 },
 			lie;
 		for ( int i=1; i<=9; i++ )
 			Initial_Num[1][i] = i;
 		Initial_Num[1][0] = Initial_Num[1][9];
 
-		if ( times == n );
-
-		else
+		if ( times < n )
 		{
 			do
 			{
 				do
 				{
-					for (int i = 1; i <= 9; i++)
+					do
 					{
-						for (int j = 1; j <= 9; j++)
+						for (int i = 1; i <= 9; i++)
 						{
-							if (j - move[i] < 0)lie = j - move[i] + 9;
-							else lie = j - move[i];
-							printf("%d", Initial_Num[1][lie % 9]);
-							if (j < 9) printf(" ");
-						}
-						printf("\n");
-					}printf("\n");
-					times++;
+							for (int j = 1; j <= 9; j++)
+							{
+								if (j - move[i] < 0)lie = j - move[i] + 9;
+								else lie = j - move[i];
+								printf("%d", Initial_Num[1][lie % 9]);
+								if (j < 9) printf(" ");
+							}
+							printf("\n");
+						}printf("\n");
+						times++;
+						if (times == n)break;
+					} while (next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9));
 					if (times == n)break;
-				} while (next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9));
+
+				} while ( next_permutation(move + 7, move + 9) );
 				if (times == n)break;
 
-			} while (next_permutation(move + 2, move + 3));
+			}while(next_permutation(move + 4, move + 6));
 
-			if (times ==n) ;
+
+			/*if (times ==n) ;
 
 			else
 			{
@@ -180,37 +170,37 @@ void create()
 					} while (next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9));
 					if (times == n)break;
 
-				} while (next_permutation(move + 4, move + 6));
+				} while (next_permutation(move + 4, move + 6));*/
 
-				if (times ==n);
+				//if (times ==n);
 
-				else
-				{
-					do
-					{
-						do
-						{
-							for (int i = 1; i <= 9; i++)
-							{
-								for (int j = 1; j <= 9; j++)
-								{
-									if (j - move[i] < 0)lie = j - move[i] + 9;
-									else lie = j - move[i];
-									printf("%d", Initial_Num[1][lie % 9]);
-									if (j < 9) printf(" ");
-								}
-								printf("\n");
-							}printf("\n");
-							times++;
-							if (times == n)break;
-						} while (next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9));
-						if (times == n)break;
-					}while (next_permutation(move + 7, move + 9));
-				}
+				//else
+				//{
+				//	do
+				//	{
+				//		do
+				//		{
+				//			for (int i = 1; i <= 9; i++)
+				//			{
+				//				for (int j = 1; j <= 9; j++)
+				//				{
+				//					if (j - move[i] < 0)lie = j - move[i] + 9;
+				//					else lie = j - move[i];
+				//					printf("%d", Initial_Num[1][lie % 9]);
+				//					if (j < 9) printf(" ");
+				//				}
+				//				printf("\n");
+				//			}printf("\n");
+				//			times++;
+				//			if (times == n)break;
+				//		} while (next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9));
+				//		if (times == n)break;
+				//	}while (next_permutation(move + 7, move + 9));
+				//}
 
-			}
+			//}
 		}
-	}
+	
 }
 
 
@@ -271,7 +261,21 @@ int main()
 	if (judge == 'c')//生成数独
 	{
 		//freopen("Debug\\demo_out.txt", "w", stdout);
-		create();
+		int num = 0,
+			f = 0;
+		for (int i = 0; i < strlen(s); i++)
+		{
+			if (s[i]<'0' || s[i]>'9')
+			{
+				printf("Wrong Input\n\n");
+				f = 1;
+				break;
+			}
+			num = num * 10 + (s[i] - '0');
+		}
+		if (f);
+		else
+			create(num);
 	}
 	else if (judge == 's')//解数独
 	{
