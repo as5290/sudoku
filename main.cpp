@@ -110,10 +110,7 @@ void create(int n)
 	int times = 0;
 	int move[10] = { 0, 0, 3, 6, 1, 4, 7, 2, 5, 8 },
 			lie;
-		for ( int i=1; i<=9; i++ )
-			Initial_Num[1][i] = i;
-		Initial_Num[1][0] = Initial_Num[1][9];
-
+	char N[10]={'9','1','2','3','4','5','6','7','8','9'};
 		if ( times < n )
 		{
 			for (int a = 0; a < 6; a++)
@@ -125,24 +122,24 @@ void create(int n)
 				{
 					if (b)
 						next_permutation(move + 7, move + 9);
-					int t = 0;
+					int t = 0; char kong = ' ';
 					do
 					{
-						if (t) next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9);
+						if (t)
+							next_permutation(N + 2, N + 9);
 						for (int i = 1; i <= 9; i++)
 						{
 							for (int j = 1; j <= 9; j++)
 							{
 								if (j - move[i] < 0)lie = j - move[i] + 9;
 								else lie = j - move[i];
-								printf("%d", Initial_Num[1][lie % 9]);
-								if (j < 9) printf(" ");
-							}
-							printf("\n");
+								putchar(N[lie % 9]);
+								if (j < 9) putchar(kong);
+							}putchar('\n');
 						}
 						times++; t++;
 						if (times == n)break;
-						else printf("\n");
+						else putchar('\n');
 					}while (t<40320);
 					if (times == n)break;
 				}
@@ -184,7 +181,7 @@ void jie()
 			if (flag)
 			{
 				cout << "No solution!" << endl ;
-				printf("\n");
+				putchar('\n');
 				break;
 			}
 		}
@@ -210,14 +207,14 @@ int main(int argc,char* argv[] )
 {
 	if (strcmp(argv[1],"-c")==0 )//生成数独
 	{
-		freopen("Debug\\demo_out.txt", "w", stdout);
+		freopen("sudoku.txt", "w", stdout);
 		int num = 0,
 			f = 0;
 		for (int i = 0; i < strlen(argv[2]); i++)
 		{
 			if (argv[2][i]<'0' || argv[2][i]>'9')
 			{
-				printf("Wrong Input\n\n");
+				printf("Wrong Input\n");
 				f = 1;
 				break;
 			}
@@ -230,7 +227,7 @@ int main(int argc,char* argv[] )
 	else if (strcmp(argv[1],"-s")==0)//解数独
 	{
 			freopen( argv[2], "r", stdin);
-			freopen("Debug\\demo_jie.txt", "w", stdout);
+			freopen("demo_jie.txt", "w", stdout);
 			while (scanf("%d", &Initial_Num[1][1]) != EOF)
 			{
 				memset(v, 0, sizeof(v));
@@ -249,6 +246,6 @@ int main(int argc,char* argv[] )
 			}
 			
 	}
-	else printf("Wrong Input\n\n");
+	else printf("Wrong Input\n");
 	return 0;
 }
