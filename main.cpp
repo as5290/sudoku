@@ -181,7 +181,6 @@ void jie()
 			if (flag)
 			{
 				cout << "No solution!" << endl ;
-				putchar('\n');
 				break;
 			}
 		}
@@ -195,7 +194,7 @@ void jie()
 					printf("%d", Initial_Num[i][j]);
 					if (j < 9) printf(" ");
 				}cout << endl;
-			}cout << endl;
+			}
 		}
 
 }
@@ -228,8 +227,11 @@ int main(int argc,char* argv[] )
 	{
 			freopen( argv[2], "r", stdin);
 			freopen("demo_jie.txt", "w", stdout);
+			int ff = 0;
 			while (scanf("%d", &Initial_Num[1][1]) != EOF)
 			{
+				if (ff)
+					printf("\n");
 				memset(v, 0, sizeof(v));
 				if (Initial_Num[1][1] > 0) v[1][1] = 1;
 				for (int i = 1; i <= 9; i++)
@@ -243,6 +245,7 @@ int main(int argc,char* argv[] )
 					}
 				}
 				jie();
+				ff = 1;
 			}
 			
 	}
