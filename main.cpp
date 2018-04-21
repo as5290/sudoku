@@ -107,7 +107,6 @@ int Get_Num(int hang, int lie)
 
 void create(int n)
 {
-	printf("%d\n", n);
 	int times = 0;
 	int move[10] = { 0, 0, 3, 6, 1, 4, 7, 2, 5, 8 },
 			lie;
@@ -121,34 +120,34 @@ void create(int n)
 			{
 				if (times == n)break;
 				if (a)
-				{
 					next_permutation(move + 4, move + 6);
-					for (int b = 0; b < 6; b++)
+				for (int b = 0; b < 6; b++)
+				{
+					if (b)
+						next_permutation(move + 7, move + 9);
+					int t = 0;
+					do
 					{
-						if (b)
-							next_permutation(move + 7, move + 9);
-						int t = 0;
-						do
+						if (t) next_permutation(Initial_Num[1] + 2, Initial_Num[1] + 9);
+						for (int i = 1; i <= 9; i++)
 						{
-							if (t) next_permutation(Initial_Num[1] + 1, Initial_Num[1] + 9);
-							for (int i = 1; i <= 9; i++)
+							for (int j = 1; j <= 9; j++)
 							{
-								for (int j = 1; j <= 9; j++)
-								{
-									if (j - move[i] < 0)lie = j - move[i] + 9;
-									else lie = j - move[i];
-									printf("%d", Initial_Num[1][lie % 9]);
-									if (j < 9) printf(" ");
-								}
-								printf("\n");
-							}printf("\n");
-							times++;
-							if (times == n)break;
-						}while (t<40320);
+								if (j - move[i] < 0)lie = j - move[i] + 9;
+								else lie = j - move[i];
+								printf("%d", Initial_Num[1][lie % 9]);
+								if (j < 9) printf(" ");
+							}
+							printf("\n");
+						}
+						times++; t++;
 						if (times == n)break;
-					}
-
+						else printf("\n");
+					}while (t<40320);
+					if (times == n)break;
 				}
+
+				
 			}
 
 		}
@@ -209,8 +208,6 @@ void jie()
 
 int main(int argc,char* argv[] )
 {
-	//printf("xx");
-	//getchar();
 	if (strcmp(argv[1],"-c")==0 )//生成数独
 	{
 		freopen("Debug\\demo_out.txt", "w", stdout);
@@ -226,31 +223,30 @@ int main(int argc,char* argv[] )
 			}
 			num = num * 10 + (argv[2][i] - '0');
 		}
-		//printf("%d\n", num);
 		if (f);
 		else
 			create(num);
 	}
 	else if (strcmp(argv[1],"-s")==0)//解数独
 	{
-		freopen( argv[2], "r", stdin);
-		freopen("Debug\\demo_jie.txt", "w", stdout);
-		while (scanf("%d", &Initial_Num[1][1]) != EOF)
-		{
-			memset(v, 0, sizeof(v));
-			if (Initial_Num[1][1] > 0) v[1][1] = 1;
-			for (int i = 1; i <= 9; i++)
+			freopen( argv[2], "r", stdin);
+			freopen("Debug\\demo_jie.txt", "w", stdout);
+			while (scanf("%d", &Initial_Num[1][1]) != EOF)
 			{
-				for (int j = 1; j <= 9; j++)
+				memset(v, 0, sizeof(v));
+				if (Initial_Num[1][1] > 0) v[1][1] = 1;
+				for (int i = 1; i <= 9; i++)
 				{
-					if (i == 1 && j == 1)continue;
-					scanf("%d", &Initial_Num[i][j]);
-					if (Initial_Num[i][j] > 0)
-						v[i][j] = 1;
+					for (int j = 1; j <= 9; j++)
+					{
+						if (i == 1 && j == 1)continue;
+						scanf("%d", &Initial_Num[i][j]);
+						if (Initial_Num[i][j] > 0)
+							v[i][j] = 1;
+					}
 				}
+				jie();
 			}
-			jie();
-		}
 			
 	}
 	else printf("Wrong Input\n\n");
