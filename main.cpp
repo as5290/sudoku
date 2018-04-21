@@ -180,7 +180,7 @@ void jie()
 			}
 			if (flag)
 			{
-				cout << "No solution!" << endl ;
+				cout << "No solution!" << "" ;
 				break;
 			}
 		}
@@ -193,7 +193,9 @@ void jie()
 				{
 					printf("%d", Initial_Num[i][j]);
 					if (j < 9) printf(" ");
-				}cout << endl;
+				}
+				if ( i<9 )
+				printf("\n");
 			}
 		}
 
@@ -231,7 +233,7 @@ int main(int argc,char* argv[] )
 			while (scanf("%d", &Initial_Num[1][1]) != EOF)
 			{
 				if (ff)
-					printf("\n");
+					printf("\n\n");
 				memset(v, 0, sizeof(v));
 				if (Initial_Num[1][1] > 0) v[1][1] = 1;
 				for (int i = 1; i <= 9; i++)
